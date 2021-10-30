@@ -1,6 +1,6 @@
 const ErrorMessageHandlerClass = require("./ErrorMessageHandlerClass");
 
-// error handling in dev mode
+// error handling in dev mode --- for devs
 function dispatchErrorDevelopment(error, req, res) {
    if (req.originalUrl.startsWith('/api')) {
       return res.status(error.statusCode).json({
@@ -12,9 +12,21 @@ function dispatchErrorDevelopment(error, req, res) {
    }
 };
 
-// error handling in prod mode
+// error handling in prod mode ---> clients
 function dispatchErrorProduction(error, req, res) {
-
+   if (req.originalUrl.startsWith('/api')) {
+      if(error.isOperational) {
+         return res.status(error.statusCode).json({
+            status: error.status,
+            message: error.message,
+         });
+      }
+      
+      return res.status(error.statusCode).json({
+         status: "Error",
+         message: "Something went wrong. Please contact Support (number) or email (email)"
+      })
+   }
 };
 
 // handling duplicate input in mongoDB
