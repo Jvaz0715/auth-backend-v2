@@ -5,6 +5,7 @@ const cors = require("cors"); //cors foregoes the blocking
 const app = express();
 
 const ErrorMessageHandlerClass = require("./routes/utils/ErrorMessageHandlerClass.js");
+const errorController = require("./routes/utils/errorController");
 const userRouter = require("./routes/user/userRouter");
 
 app.use(cors());
@@ -30,5 +31,6 @@ app.all("*", function(req, res, next) {
       )
    );
 });
+app.use(errorController); //for handling dev & prod errors
 
 module.exports = app;

@@ -20,10 +20,10 @@ async function deleteUserById(req, res) {
    } catch(e) {
       res.status(500).json({ message: "error", error: e.message })
    }
-};
+};``
 
 // signup
-async function signup(req, res) {
+async function signup(req, res, next) {
    const {
       username,
       email,
@@ -58,7 +58,9 @@ async function signup(req, res) {
       res.json({ message: "success", data: savedUser });
 
    } catch (e) {
-      res.status(500).json({message: "error", error: e })
+      // res.status(500).json({message: "error", error: e })
+      console.log("1")
+      next(e); //we handle errors with the errorController
    }
 };
 
