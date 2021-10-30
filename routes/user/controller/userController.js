@@ -59,7 +59,6 @@ async function signup(req, res, next) {
 
    } catch (e) {
       // res.status(500).json({message: "error", error: e })
-      console.log("1")
       next(e); //we handle errors with the errorController
    }
 };
