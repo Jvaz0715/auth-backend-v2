@@ -104,7 +104,7 @@ async function login(req, res, next) {
 
 
             // if they do match, send back success message
-            res.json({message: "success", payload: jwtToken});
+            res.json({message: "Successfully logged in!", payload: jwtToken});
          }
       }
 
