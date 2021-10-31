@@ -1,6 +1,7 @@
 const express = require("express");
 const logger = require("morgan");
 const cors = require("cors"); //cors foregoes the blocking
+const rateLimit = require("express-rate-limit"); // this will be used to limit wrong password input
 
 const app = express();
 
@@ -14,6 +15,15 @@ app.use(cors());
 if(process.env.NODE_ENV === "development") {
    app.use(logger("dev"));
 };
+
+// set a password incorrect limit and timer
+const limiter = rateLimit({
+   max: 5, //number of attempts
+   windowMs: 60 * 60 * 1000, //length of time (in this case one hour)
+   message: "Too many requests from this IP, please try again or contact support @ xxx-xxx-xxxx"
+});
+
+app.use("/api", limiter);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false })); // <--- this parses the incoming data
