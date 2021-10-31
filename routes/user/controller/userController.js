@@ -64,7 +64,7 @@ async function signup(req, res, next) {
 };
 
 // login
-async function login(req, res) {
+async function login(req, res, next) {
    const { email, password } = req.body;
    const { errorObj } = res.locals;
 
@@ -109,7 +109,8 @@ async function login(req, res) {
       }
 
    } catch(e) {
-      res.json({message: "error", error: e})
+      // res.json({message: "error", error: e})
+      next(e);
    }
 };
 
