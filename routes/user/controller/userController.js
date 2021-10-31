@@ -88,12 +88,13 @@ async function login(req, res, next) {
          if (!comparedPassword) {
             res.status(400).json({ message: "failure", payload: "check your email and password"});
          } else {
-            // jwt jsonwebtoken
+            // jwt jsonwebtoken this token will keep us logged in on the front end
             // the fist argument is the object containing only the information you want to expose
             // the second argument is the secret key which should be cloaked in dotenv!
             // the third argument is an object with a expiresIn key and a time limit
-            let jwtToken = jwt.sign({
-               email: foundUser.email,
+            let jwtToken = jwt.sign(
+               {
+                  email: foundUser.email,
                   username: foundUser.username,
                },
                process.env.PRIVATE_JWT_KEY,
