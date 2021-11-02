@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const jwtMiddleware = require("../utils/jwtMiddleware");
 
 // Download the helper library from https://www.twilio.com/docs/node/install
 // Find your Account SID and Auth Token at twilio.com/console
@@ -8,7 +9,8 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 
-router.post("/send-sms", function(req, res){
+// to protect our twilio API, we pass the jwtMiddleware.js function as the second argument
+router.post("/send-sms", jwtMiddleware,function(req, res){
 
    client.messages
       .create({
