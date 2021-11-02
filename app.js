@@ -8,6 +8,7 @@ const app = express();
 const ErrorMessageHandlerClass = require("./routes/utils/ErrorMessageHandlerClass.js");
 const errorController = require("./routes/utils/errorController");
 const userRouter = require("./routes/user/userRouter");
+const twilioRouter = require("./routes/twilio/twilioRouter"); //bringing in our twilioRouter for messaging
 
 app.use(cors());
 
@@ -30,6 +31,8 @@ app.use(express.urlencoded({ extended: false })); // <--- this parses the incomi
 
 // this is where the app will use whatever url address we create with user router
 app.use("/api/users", userRouter);
+// this is where we use the twilio router
+app.use("/api/twilio", twilioRouter);
 
 // catch all for everything that does not work in URL if it doesn't exist
 // make sure to put it at the bottom!
