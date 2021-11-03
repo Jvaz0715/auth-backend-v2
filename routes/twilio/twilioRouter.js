@@ -16,7 +16,7 @@ router.post("/send-sms", jwtMiddleware,function(req, res){
       .create({
          body: req.body.message,
          from: process.env.TWILIO_NUMBER,
-         to: req.body.toNumber,
+         to: `+1${req.body.to}`,
          // to: process.env.MY_PHONE_NUMBER, //if upgrade twilio, this will be req.body.toNumber which the user would then input when sending what wants to be sent
       })
       .then(message => res.json(message))
