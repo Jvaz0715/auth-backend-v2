@@ -20,7 +20,7 @@ async function deleteUserById(req, res) {
    } catch(e) {
       res.status(500).json({ message: "error", error: e.message })
    }
-};``
+};
 
 // signup
 async function signup(req, res, next) {
